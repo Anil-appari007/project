@@ -21,9 +21,16 @@
       
     - name: tagging image
       shell: docker tag i1 anilappari/s1:1.007
+     
       
 - hosts: web
   tasks:
       
     - name: pushing image to hub
       shell: docker push anilappari/s1:1.007
+      
+- hosts: web
+  become: yes
+  tasks: 
+    - name: removing images
+      shell: docker rmi  anilappari/s1:1.007 i1
