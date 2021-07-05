@@ -13,11 +13,17 @@
         dest: /home/ansible/from-master
 
     - name: removing old containers & images
-      shell: docker stop web ; docker rm web ; docker rmi -f i1
+      shell: docker stop web ; docker rm web ; docker rmi -f anilappari/s1:1.007 i1
       ignore_errors: yes
 
     - name: creating image
       shell: cd from-master ; docker build -t i1 .
-
-    - name: creating container
-      shell: docker run -d -p 30001:8080 --name web i1
+      
+    - name: tagging image
+      shell: docker tag i1 anilappari/s1:1.007
+      
+- hosts: web
+  tasks:
+      
+    - name: pushing image to hub
+      shell: docker push anilappari/s1:1.007
