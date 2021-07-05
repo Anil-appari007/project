@@ -1,0 +1,12 @@
+---
+- hosts: kube
+  become: yes
+  tasks:
+
+    - name: deleting previous
+      shell: sudo kubectl delete deployment web-deployment ; sudo kubectl delete service web-service
+    - name: deploying with k8
+      shell: sudo kubectl apply -f web-deployment.yaml
+
+    - name: creating service
+      shell: sudo kubectl apply -f web-service.yaml
