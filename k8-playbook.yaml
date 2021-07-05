@@ -2,10 +2,15 @@
 - hosts: kube
   become: yes
   tasks:
-
-    - name: moving definition files of deployment,service
+        
+    - name : moving deployment file
       copy:
-        src: [web-deployment.yaml,web-service.yaml]
+        src: web-deployment.yaml
+        dest: /home/ansible/from-master
+        
+    - name : moving deployment file
+      copy:
+        src: web-service.yaml
         dest: /home/ansible/from-master
         
     - name: deleting previous
