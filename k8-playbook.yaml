@@ -3,10 +3,17 @@
   become: yes
   tasks:
 
+    - name: moving definition files of deployment,service
+      copy:
+        src: [web-deployment.yaml,web-service.yaml]
+        dest: /home/ansible/from-master
+        
     - name: deleting previous
       shell: sudo kubectl delete deployment web-deployment ; sudo kubectl delete service web-service
+      ignore_errors: yes
+      
     - name: deploying with k8
-      shell: sudo kubectl apply -f web-deployment.yaml
+      shell: cd from-master ; sudo kubectl apply -f web-deployment.yaml
 
     - name: creating service
-      shell: sudo kubectl apply -f web-service.yaml
+      shell: cd from-master ; sudo kubectl apply -f web-service.yaml
