@@ -1,0 +1,23 @@
+---
+- hosts: web
+  become: true
+  tasks:
+    - name: moving dockerfile & war
+      copy:
+        src: webapp.war
+        dest: /home/ansible/from-master
+
+    - name: moving dockerfile & war
+      copy:
+        src: Dockerfile
+        dest: /home/ansible/from-master
+
+    - name: removing old containers & images
+      shell: docker stop web ; docker rm web ; docker rmi -f i1
+      ignore_errors: yes
+
+    - name: creating image
+      shell: cd from-master ; docker build -t i1 .
+
+    - name: creating container
+      shell: docker run -d -p 30001:8080 --name web i1
