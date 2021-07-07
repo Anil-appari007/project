@@ -1,0 +1,17 @@
+To do this project, we need Git,Jenkins,Ansible,Docker,k8.
+
+Flow of project
+Git > Github > jenkins > Ansible > Docker > K8s
+
+1. Code is pushed into github
+2. Jenkins will start build
+3. In ansible,
+
+we move files named webapp.war,Dockerfile,build-push.yaml,web-deployment.yaml,web-service.yaml,k8-playbook into ansible through jenkins.
+Then playbooks build-push.yaml, k8-playbook will do their job
+
+In build-push.yaml,
+        webapp.war,dockerfile will be moved to docker_server and image will be builded, then pushed to docker hub.
+
+In k8-playbook.yaml,
+        definition files web-deployment.yaml,web-service.yaml will be moved to k8 server & pods are created
