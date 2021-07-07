@@ -16,7 +16,7 @@ resource "aws_instance" "t-ansible" {
   amazon-linux-extras install -y epel
   yum install -y ansible
   useradd ansible
-  mkdir /home/ansible/from-jenkins
+  su - ansible ; mkdir /home/ansible/from-jenkins
   EOF
 }
 output "public_ip_ansible" {
