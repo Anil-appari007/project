@@ -21,6 +21,9 @@ resource "aws_instance" "k8" {
   curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64   && chmod +x minikube
   install minikube /usr/sbin/
   minikube start --driver=none
+  useradd ansible
+  echo "ansible  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+  su - ansible ; mkdir from-master
   EOF
 }
 output "public_ip_jenkins" {
