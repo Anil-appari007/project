@@ -16,7 +16,8 @@ resource "aws_instance" "docker_server" {
   yum install -y docker
   service docker start
   useradd ansible
-  mkdir /home/ansible/from-master
+  usermod -aG docker start
+  su - ansible ; mkdir /home/ansible/from-master
   EOF
 }
 output "public_ip_docker" {
